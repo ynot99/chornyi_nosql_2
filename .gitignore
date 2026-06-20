@@ -1,4 +1,6 @@
 .env
+.venv
+Notes.md
 arxiv-metadata-oai-snapshot.json
 archive.zip
 venv/
