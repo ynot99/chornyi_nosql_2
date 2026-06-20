@@ -45,7 +45,7 @@ def format_authors(paper: dict) -> str:
                 parts.append(f"{last}{first}".strip())
         return ", ".join(parts)
     # Запасний варіант: сирий рядок авторів
-    return paper.get("authors", "").replace("\\n", " ")
+    return paper.get("authors", "").replace("\n", " ")
 
 
 records = []
@@ -73,8 +73,8 @@ with open(INPUT_FILE, "r", encoding="utf-8") as f:
         records.append(
             {
                 "id": paper["id"],
-                "title": title.replace("\\n", " ").strip(),
-                "abstract": abstract.replace("\\n", " ").strip(),
+                "title": title.replace("\n", " ").strip(),
+                "abstract": abstract.replace("\n", " ").strip(),
                 "authors": format_authors(paper),
                 "year": extract_year(paper),
                 "category": primary_category,
@@ -82,13 +82,13 @@ with open(INPUT_FILE, "r", encoding="utf-8") as f:
         )
 
 df = pd.DataFrame(records)
-print(f"\\nЗавантажено статей:{len(df)}")
-print(f"\\nРозподіл за категоріями (топ-10):")
+print(f"\nЗавантажено статей:{len(df)}")
+print(f"\nРозподіл за категоріями (топ-10):")
 print(df["category"].value_counts().head(10))
-print(f"\\nРозподіл за роками:")
+print(f"\nРозподіл за роками:")
 print(df["year"].value_counts().sort_index().tail(10))
-print(f"\\nПриклад запису:")
+print(f"\nПриклад запису:")
 print(df.iloc[0].to_dict())
 
 df.to_parquet(OUTPUT_FILE, index=False)
-print(f"\\nЗбережено в{OUTPUT_FILE}")
+print(f"\nЗбережено в{OUTPUT_FILE}")
